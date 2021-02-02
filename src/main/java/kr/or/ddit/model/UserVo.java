@@ -9,6 +9,71 @@ public class UserVo {
 	
 	private String userid;
 	private String usernm;
+	private String pass;
+	private String alias;
+	private String addr1;
+	private String addr2;
+	private String zipcode;
+	private String filename;
+	private String realfilename;
+	
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public String getAddr1() {
+		return addr1;
+	}
+
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+
+	public String getAddr2() {
+		return addr2;
+	}
+
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getRealfilename() {
+		return realfilename;
+	}
+
+	public void setRealfilename(String realfilename) {
+		this.realfilename = realfilename;
+	}
+
+
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date reg_dt;
@@ -20,13 +85,15 @@ public class UserVo {
 	@NumberFormat(pattern="#,###")
 	private int price;
 
+	public UserVo() {}
 
-
-	public UserVo() {}//±âº»»ý¼ºÀÚ »ý¼º 
+	public UserVo(String userid, String usernm, String pass, Date date, String alias, String addr1, String addr2, String zipcode, String filename, String realfilename) {}
+	//ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	
-	public UserVo(String userid, String usernm) {
+	public UserVo(String userid, String usernm, String pass) {
 		setUserid(userid);
 		setUsernm(usernm);
+		setPass(pass);
 	}
 	public String getUserid() {
 		return userid;
@@ -70,8 +137,13 @@ public class UserVo {
 
 	@Override
 	public String toString() {
-		return "UserVo [userid=" + userid + ", usernm=" + usernm + ", reg_dt=" + reg_dt + "]";
+		return "UserVo [userid=" + userid + ", usernm=" + usernm + ", pass=" + pass + ", alias=" + alias + ", addr1="
+				+ addr1 + ", addr2=" + addr2 + ", zipcode=" + zipcode + ", filename=" + filename + ", realfilename="
+				+ realfilename + ", reg_dt=" + reg_dt + ", hire_dt=" + hire_dt + ", price=" + price + "]";
 	}
+
+
+
 
 
 	

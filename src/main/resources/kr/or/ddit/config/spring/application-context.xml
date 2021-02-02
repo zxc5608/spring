@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!--자식 컨테이너 :DispatcherServlet 에 의해 생성
+					controller과 관련된 스프링 빈을 등록  -->
+	<!--kr.or.ddit하위의 모든 클래스 중 @Controller 어노테이션이 적용된 클래스만 스캔  -->
+	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
+															<!--컨트롤러 어노테이션 열어서 주소 확인 -->
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>	
+	
+	<!--@RequestMapping 어노테이션을 처리
+		FormattingConversionService등록
+		RequestMappingHandlerMapping
+		RequestMappingHandlerAdapter
+	  -->
+	<mvc:annotation-driven>
+	</mvc:annotation-driven>		
+	
+	<!-- view resolver등록 (여러개를 등록하는 것이 가능)
+		jsp ==> InternalResourceViewResolver -->
+		
+
+	 <!-- prefix + servlet  +suffix -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>		
+	
+	<!-- 스프링이 처리하지 못하는 요청에 대해
+	서버에 설정이 되어있는 default서블릿으로 요청을위임 -->
+	
+ 	<mvc:default-servlet-handler/>
+</beans>

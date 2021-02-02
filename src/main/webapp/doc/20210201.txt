@@ -1,0 +1,165 @@
+앞으로 테스트 코드 작성방법
+
+controller ==> 1. WebTestConfig 클래슬르 상속받는 junit 클래스 생성
+			   2. mockMvc객체를 이용하여 테스트 코드작성
+			   
+service , repository ==> 1. ModelTestConfig  클래슬르 상속 받는 junit클래스를 생성
+						 2. 테스트 대상 스프링 빈을 주입받아 테스트 코드 작성
+						 
+실습 
+Login기능 마이그레이션 (jsp/servlet => spring)
+1. 로그인 화면 요청 
+	.jsp위치 (webapp/...==> webapp/WEB-INF/views)
+			common/header.jsp , left.jsp, common_lib.jsp)
+			복사
+			webapp/login.jsp ==> webapp/WEB-INF/views/login.jsp
+			webapp/common/*.jsp ==> webapp/WEB-INF/views/common/*.jsp
+			
+login화면 요청 처리 controller ---spring 작업---
+
+1.kr.or.ddit.login.loginController 생성
+2. @Controller등록
+
+3. @RequestMapping ==> class?method?
+	기존 :@WebServlet("/loginController")
+	변경: login/view ==> localhost/login/view
+4. method 구현(login.jsp forword)
+	
+	해당 요청을 처리하기위해 파라미터가 필요한가? ==> 필요 없음
+	
+	요청위임(servlet)
+		req.getRequestDispatcher("/login.jsp").forward(req, resp);
+	
+	요청위임(spring)
+		메소드 반환 문자열(view name)
+			/WEB-INF/views/ + 메소드 반환 뷰네임 + .jsp
+			/WEB-INF/views/login.jsp
+	
+5.테스트코드구현
+
+
+
+====================
+controller 테스트 코드 구현시 사용하는 메서드
+	.perform
+	 get(),post(),fileUpload()
+	 param("파라미터명","파라미터값")
+	 
+	.andExpect
+		status(), model(), view()
+		
+	.andReturn() => MvcResult 객체를 반환
+				ModelAndView mav = mvcResult.getModelAndView();
+				
+	.andDo() ==> 부가적인 작업(결과출력)
+	
+--파라미터가 있는 스프링 컨트롤러 
+LoginController: 로그인 요청 처리 메소드 개발 
+
+1.userVo 준비(작성안한 필드 추가)
+
+2.webapp/main.jsp ==> webapp/WEB-INF/views/main.jsp로 복사
+
+3. 로그인 처리 로직(메소드)
+
+	3-1파라미터 받는 작업 
+		기존 : req.getparameter("userid")
+		==>
+			1.파라미터가 몇개 없어서 value object를 사용하지 않는 경우
+			 스프링 컨트롤러 메소드에 파라미터와 동일한 이름의 인자를 선언
+			 스프링 mvc모듈에서 request객체의 파라미터를 메소드 인자로 자동 바인딩 한다
+			 
+			2.파라미터를 담을 value object가 있는 경우
+			  value object를 스프링 메소드 인자로 선언
+			  파라미터 이름과 value object의 필드의 이름이 동일한 경우 자동으로 바인딩
+			 
+			
+		
+	3-2 로그인 성공시
+		세션객체 S_USER속성으로 사용자 정보를 vo객체를 저장
+		 기존 :Httpservlet session = req.getSession()
+		 	session.setAttribute("S_USER",userVo)
+		 	=>
+		 	스프링 컨트롤러 메소드에 추가할 수 있는 인자타입
+		 	servlet api: httpServletRequest, HttpServletResponse, HttpSession
+		 				 application ==> getServletContext()
+	3-3로그인 실패시 
+		login.jsp로 리다이렉트
+		
+		기존: response.sendRedirect("/login.jsp")
+		==>spring 에서는  컨트롤러 메소드가 viewNAme을 반환하게 되어있음
+			redirect에 대한 viewName: "redirect"+ 리다이렉트주소
+			
+스프링 컨트롤러 메소드 인자
+1. servlet APi-3개
+
+2. value object - spring Command 객체/form객체 :form전송을 통해 보내진 파리미터를 받는 객체 , primitive type , 개별객체(String, Date)
+
+2.5 ErrorBindingResult:validation 검증시 에러 메세지를 저장 
+						*******규칙
+						해당 value객체 다음에 이어서 메소드 인자로 선언해야 한다
+						public String process(UserVo userVo, binding 객체)O
+						public String process(UserVo userVo, HttpSession session,binding객체)x
+
+3.model- 속성 담을 때 (request scope)
+
+4.Reader/Writer , Input/OutputStream 
+	servlet에서 html응답 생성: Writer
+	파일 다운로드 응답: OutputStream
+	
+	사용자 요청 정보(파일업로드): InputStream 
+5.RedirectAttributes: 리다이렉트 페이지에 1회성 속성전달 
+			request.setAttribute("msg","에러발생")
+			response.sendRedirect("리다이렉트.jsp")
+			
+			리다이렉트.jsp에서 msg속성 조회?
+			
+	
+스프링 컨트롤러 반환타입
+
+1.String : viewName
+2.ModelAndView : 모델과 뷰 객체가 합쳐진 객체 
+3.View 객체
+4.void : response, Outsteam을 통해 개발자가 직접 응답 생성한 경우
+		-> 파일 다운로드
+
+스프링 컨트롤러에서 사용가능한 어노테이션 
+@Controller
+@RequestMapping("url")==> path @RequestMapping(path="url")
+
+1.url mapping :path
+
+2.Http메소드 제한 :method
+
+3.파라미터제한
+params 특정 파라미터의 값이 정해진 값과 일치 할 때 만 해당 요청을 처리
+params={"userid=brown"}
+
+AJAX:
+4.요청 content-type 제한: consumes
+	consumes="application/json" ==>요청을 json문자열로 보냈을때만 처리 
+5.응답 허용 content-type, ACCEPT제한: 응답으로 json요청일때 만 처리
+			produce= "application/json"
+6. 특정 헤더 제한 : 
+		header="Content-Type = text/plain		
+		
+		
+spring- mybais 연동
+
+예전 (jsp)
+	MybatisUtil.getSqlSession()
+	
+spring
+	sqlSession객체에 해당하는 sqlSessionTemplate객체를 dao객체에 주입 받아서 사용
+	sqlSessionTemplate ==> SqlSessionFactoryBean ==> 1.설정 파일(맵퍼 파일), 2. Datasource
+	
+userServiceImpl , userDaoImpl
+마이그레이션 
+테스트코드작성
+
+사용자 전체리스트 개발 URL :user/alluser
+1.spring controller 생성: kr.or.ddit.user.web.UserController
+2.필요한 스프링 빈 : userService
+	**조회한 사용자 리스트 정보 model 객체에 담기(userList)
+3.webapp/user/allUser.jsp ==> webapp/WEB-INF/views/user/allUser.jsp
+*.UserControllerTest생성, allUser메소드 테스트 

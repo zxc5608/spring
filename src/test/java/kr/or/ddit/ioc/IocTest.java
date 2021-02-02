@@ -1,29 +1,37 @@
 package kr.or.ddit.ioc;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.user.service.UserService;
 
+@ContextConfiguration(locations=
+					{"classpath:/kr/or/ddit/ioc/ioc.xml",
+					 "classpath:/kr/or/ddit/config/spring/datasource-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:/kr/or/ddit/ioc/ioc.xml")
-
 public class IocTest {
 	
-	@Resource(name= "userServiceCons")
-	private UserService userServiceCons;
-	
-	@Resource(name= "userService")
+	//@Resource(name="userService")
+	//************************************************
+	// ê°ì²´ ì´ë¦„ì„ ë³€ê²½ì‹œ Autowiredê°€ ì‹¤íŒ¨í•˜ëŠ” ë¶€ë¶„ ì¶”í›„ í™•ì¸
+	//************************************************
+	@Autowired
 	private UserService userService;
-
-	@Resource(name= "userService")
+	
+	@Resource(name="userService")
 	private UserService userService2;
+	
+	@Resource(name="userServiceCons")
+	private UserService userServiceCons;
 	
 	@Resource(name="userServicePrototype")
 	private UserService userServicePrototype;
@@ -31,55 +39,55 @@ public class IocTest {
 	@Resource(name="userServicePrototype")
 	private UserService userServicePrototype2;
 	
-	@Resource(name= "dbConfig")
+	@Resource(name="dbConfig")
 	private DbConfig dbConfig;
-	
-	
-	//userServiceCons½ºÇÁ¸µ ºóÀÌ Á¤»óÀûÀ¸·Î »ı¼ºµÇ¾ú´ÂÁö Å×½ºÆ®
 
+	// userServiceCons ìŠ¤í”„ë§ ë¹ˆì´ ì •ìƒì ìœ¼ë¡œ ìƒì„± ë˜ì—ˆëŠ”ì§€ í…ŒìŠ¤íŠ¸
 	@Test
 	public void userServiceConsTest() {
 		/***Given***/
 		
-
 		/***When***/
 
 		/***Then***/
 		assertNotNull(userServiceCons);
 	}
+
 	@Test
 	public void beanScopeTest() {
-	
-		// µğÀÚÀÎ ÆĞÅÏÀÇ singleton°³³äÀ¸·Î º¸¸é µÎ°³ÀÇ °´Ã¼´Â ÇÑ Å¬·¡½º·Î ºÎÅÍ ³ª¿ÔÀ¸¹Ç·Î µ¿ÀÏÇØ¾ßÇÔ
-		//ÇÏÁö¸¸ ½ºÇÁ¸µÀÇ singleton°³³äÀº bean¿¤·¹¸àÆ®¸¦ ±âÁØÀ¸·Î ÇÏ³ªÀÇ °´Ã¼°¡ »ı¼ºµÈ´Ù.
-		assertNotEquals(userService, userServiceCons);
 		
+		//ë””ìì¸ íŒ¨í„´ì˜ signleton ê°œë…ìœ¼ë¡œ ë³´ë©´ ë‘ê°œì˜ ê°ì²´ëŠ” í•œ í´ë˜ìŠ¤ë¡œ ë¶€í„° ë‚˜ì™”ìœ¼ë¯€ë¡œ ë™ì¼ í•´ì•¼í•¨
+		//í•˜ì§€ë§Œ ìŠ¤í”„ë§ì˜ singleon ê°œë…ì€ bean ì—˜ë ˆë©˜íŠ¸ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•˜ë‚˜ì˜ ê°ì²´ê°€ ìƒì„±ëœë‹¤
+		assertNotEquals(userService, userServiceCons);		
 	}
 	
 	@Test
 	public void beanScopeTest2() {
-	
-		// µ¿ÀÏÇÑ ½ºÇÁ¸µ ºóÀ» ÁÖÀÔ¹Ş¾ÒÀ¸¹Ç·ÎuserService,userService2´Â °°Àº °´Ã¼´Ù
 		
-		assertEquals(userService,userService2);
+		//ë™ì¼í•œ ìŠ¤í”„ë§ ë¹ˆì„ ì£¼ì…ë°›ì•˜ìœ¼ë¯€ë¡œ userService, userService2ëŠ” ê°™ì€ ê°ì²´ë‹¤
+		assertEquals(userService, userService2);
 	}
 	
 	@Test
-	public void ScopePrototypeTest2() {
-		
-		// µ¿ÀÏÇÑ userServicePrototypeºóÀ» ÁÖÀÔ :(scope:prototype)
-		
+	public void beanScopePrototypeTest() {
+		//ë™ì¼í•œ userServicePrototype ë¹ˆì„ ì£¼ì… (scope : prototype)
 		assertNotEquals(userServicePrototype, userServicePrototype2);
 	}
-
+	
 	@Test
 	public void propertyPlaceholderTest() {
-		
 		assertNotNull(dbConfig);
 		assertEquals("yongyong", dbConfig.getUsername());
 		assertEquals("java", dbConfig.getPassword());
 		assertEquals("jdbc:oracle:thin:@localhost:1521:xe", dbConfig.getUrl());
 		assertEquals("oracle.jdbc.driver.OracleDriver", dbConfig.getDriverClassName());
-		
 	}
 }
+
+
+
+
+
+
+
+

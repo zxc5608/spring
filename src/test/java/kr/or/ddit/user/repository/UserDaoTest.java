@@ -1,21 +1,23 @@
 package kr.or.ddit.user.repository;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.model.UserVo;
+import kr.or.ddit.user.test.config.ModelTestConfig;
 
-//½ºÇÁ¸µ È¯°æ¿¡¼­ junit ÄÚµå¸¦ ½ÇÇà => junitÄÚµåµµ ½ºÇÁ¸µ ºóÀ¸·Î µî·Ï
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:/kr/or/ddit/ioc/ioc.xml")
-public class UserDaoTest {
-//		ÁÖÀÔ ¹Ş°í½ÍÀº ½ºÇÁ¸µ ºó 
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¯ï¿½æ¿¡ï¿½ï¿½ junit ï¿½Úµå¸¦ ï¿½ï¿½ï¿½ï¿½ => junitï¿½Úµåµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+
+public class UserDaoTest extends ModelTestConfig {
+//		ï¿½ï¿½ï¿½ï¿½ ï¿½Ş°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
 	@Resource(name="userDao")
 	private UserDao userDao;
 	
@@ -25,11 +27,78 @@ public class UserDaoTest {
 		String userid= "brown";
 
 		/***When***/
-		UserVo userVo= userDao.getUser(userid);
+		UserVo userVo= userDao.selectUser(userid);
 		
 		/***Then***/
-		assertEquals("ºê¶ó¿î", userVo.getUsernm());
+		assertEquals("ë¸Œë¼ìš´", userVo.getUsernm());
+		
+	}
+	@Test
+	public void AllUserTest() {
+		/***Given***/
+		
+
+		/***When***/
+		List<UserVo> userList= userDao.selectAllUser();
+		
+
+		/***Then***/
+		assertEquals(19, userList.size());
+
+	}
+	//ì‚¬ìš©ì ì•„ì´ë””ë¥¼ ì´ìš©í•˜ì—¬ íŠ¹ì •ì‚¬ìš©ì ì •ë³´ ì¡°íšŒ
+	@Test
+	public void selectUserTest() {
+		/***Given***/
+		String userid= "brown";
+
+		
+		/***When***/
+		UserVo user = userDao.selectUser(userid);
+		
+		/***Then***/
+		assertNotNull(user);
+		assertEquals("ë¸Œë¼ìš´", user.getUsernm());
+	}
+	@Test
+	public void selectpagingUserTest() {
+		/***Given***/
+		PageVo pvo= new PageVo(2,5);
+
+		/***When***/
+		List<UserVo> userList= userDao.selectpagingUser(pvo);
+		/***Then***/
+		assertEquals(5,userList.size());
+
+	}
+	@Test
+	public void ModifyUserTest() {
+		/***Given***/
+		
+		
+		//userid usernm pass reg_gt alias addr1 addr2 zipcode 
+		UserVo userVo = new UserVo("ddit","ëŒ€ë•ì¸ì¬","dditpass",new Date(),"ê°œë°œì›m","ëŒ€ì „ ì¤‘êµ¬ ì¤‘ì•™ë¡œ 76","4ì¸µ ëŒ€ë•ì¸ì¬ê°œë°œì›","34940","brown.png","uuid-generated-filename.png");
+		
+		/***When***/
+		int updateCnt =  userDao.modifyUser(userVo);
+		
+		/***Then***/
+		
+		assertEquals(1,updateCnt);
 		
 	}
 
+
+//ì‚­ì œ í…ŒìŠ¤íŠ¸
+	@Test
+	public void deleteUserTest() {
+		/***Given***/
+		//í•´ë‹¹ í…ŒìŠ¤íŠ¸ê°€ ì‹¤í–‰ë ë•ŒëŠ” testUserë¼ëŠ” ì‚¬ìš©ìê°€ beforeë©”ì†Œë“œì— ì˜í•´ ë“±ë¡ì´ ëœë‹¤
+		String userid = "testUser";
+		/***When***/
+		int deleteCnt= userDao.deleteUser(userid);
+		
+		/***Then***/
+		assertEquals(0, deleteCnt);
+	}
 }

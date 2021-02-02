@@ -1,4 +1,4 @@
-spring °ü·Ã jar
+spring ê´€ë ¨ jar
 context, core ,web,beans,web Mvc,testContext FrameWork,jdbc
 4.3.30.RELEASE
 
@@ -6,40 +6,39 @@ junit - test
 jstl
 logback - logging
 
-¿ì¸®°¡ »ç¿ëÇÒ °´Ã¼¸¦ ½ºÇÁ¸µ ÇÁ·¹ÀÓ¿öÅ©(ÄÁÅ×ÀÌ³Ê)¿¡¼­ »ý¼ºÇÒ ¼ö ÀÖµµ·Ï ¼³¸í¼­¸¦ ÀÛ¼º(xml,java)
+ìš°ë¦¬ê°€ ì‚¬ìš©í•  ê°ì²´ë¥¼ ìŠ¤í”„ë§ í”„ë ˆìž„ì›Œí¬(ì»¨í…Œì´ë„ˆ)ì—ì„œ ìƒì„±í•  ìˆ˜ ìžˆë„ë¡ ì„¤ëª…ì„œë¥¼ ìž‘ì„±(xml,java)
 new
 
-½ºÇÁ¸µ ºó °´Ã¼¸¦ ÁÖÀÔ ¹ÞÀ»¼ö ÀÖ´Â Á¶°Ç: ÁÖÀÔÀ» ¹Þ´Â °´Ã¼µµ ½ºÇÁ¸µ ºóÀ¸·Î µî·ÏÀÌ µÇ¾î ÀÖ¾î¾ß ÇÑ´Ù
-								Áï ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê¿¡¼­ °ü¸®°¡ µÇ´Â °´Ã¼¿©¾ß ÇÑ´Ù
+ìŠ¤í”„ë§ ë¹ˆ ê°ì²´ë¥¼ ì£¼ìž… ë°›ì„ìˆ˜ ìžˆëŠ” ì¡°ê±´: ì£¼ìž…ì„ ë°›ëŠ” ê°ì²´ë„ ìŠ¤í”„ë§ ë¹ˆìœ¼ë¡œ ë“±ë¡ì´ ë˜ì–´ ìžˆì–´ì•¼ í•œë‹¤
+								ì¦‰ ìŠ¤í”„ë§ ì»¨í…Œì´ë„ˆì—ì„œ ê´€ë¦¬ê°€ ë˜ëŠ” ê°ì²´ì—¬ì•¼ í•œë‹¤
 								
-ex: userService=°´Ã¼¿¡ userDao ½ºÇÁ¸µ ºóÀ» (DI)ÁÖÀÔ ÇÏ·Á¸é userService°´Ã¼µµ ½ºÇÁ¸µ ºóÀÌ¾î¾ßÇÑ´Ù
+ex: userService=ê°ì²´ì— userDao ìŠ¤í”„ë§ ë¹ˆì„ (DI)ì£¼ìž… í•˜ë ¤ë©´ userServiceê°ì²´ë„ ìŠ¤í”„ë§ ë¹ˆì´ì–´ì•¼í•œë‹¤
  	
- 	userService°´Ã¼°¡ ½ºÇÁ¸µ ºóÀÌ ¾Æ´ÏÁö¸¸ ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê (applicationContext)°´Ã¼¸¦ ÂüÁ¶ ÇÏ°í ÀÖÀ¸¸é
- 	DLÀº °¡´ÉÇÏ´Ù
+ 	userServiceê°ì²´ê°€ ìŠ¤í”„ë§ ë¹ˆì´ ì•„ë‹ˆì§€ë§Œ ìŠ¤í”„ë§ ì»¨í…Œì´ë„ˆ (applicationContext)ê°ì²´ë¥¼ ì°¸ì¡° í•˜ê³  ìžˆìœ¼ë©´
+ 	DLì€ ê°€ëŠ¥í•˜ë‹¤
  	
-DI(ÁÖÀÔ) ¹æ½Ä
-	1. setter  : setter¸Þ¼Òµå°¡ Á¸ÀçÇØ¾ßÇÔ (xml.java¼³Á¤ ÆÄÀÏ)
-	2. »ý¼ºÀÚ    : ÁÖÀÔ ¹ÞÀ¸·Á´Â ºóÀ» »ý¼ºÀÚ ÀÎÀÚ·Î ÇÏ´Â »ý¼ºÀÚ°¡ Á¸Àç ÇØ¾ßÇÔ (xml,java¼³Á¤ ÆÄÀÏ)
-	3. ¾î³ëÅ×ÀÌ¼Ç : @Resource, @Autowired,@Inject(xml, java¿¡¼­ ¼³Á¤°¡´ÉÇÏ³ª Àß µå·¯³ªÁö ¾ÊÀ½)
+DI(ì£¼ìž…) ë°©ì‹
+	1. setter  : setterë©”ì†Œë“œê°€ ì¡´ìž¬í•´ì•¼í•¨ (xml.javaì„¤ì • íŒŒì¼)
+	2. ìƒì„±ìž    : ì£¼ìž… ë°›ìœ¼ë ¤ëŠ” ë¹ˆì„ ìƒì„±ìž ì¸ìžë¡œ í•˜ëŠ” ìƒì„±ìžê°€ ì¡´ìž¬ í•´ì•¼í•¨ (xml,javaì„¤ì • íŒŒì¼)
+	3. ì–´ë…¸í…Œì´ì…˜ : @Resource, @Autowired,@Inject(xml, javaì—ì„œ ì„¤ì •ê°€ëŠ¥í•˜ë‚˜ ìž˜ ë“œëŸ¬ë‚˜ì§€ ì•ŠìŒ)
 	
-scope : beanÀÇ ¼Ó¼º, singleton(default), prototypeÀÌ Á¸Àç
-µðÀÚÀÎÆÐÅÏ - singleton: Æ¯Á¤ Å¬·¡½ºÀÇ ÀÎ½ºÅÏ½º°¡ jvm¿¡¼­ ÇÏ³ª¸¸ Á¸ÀçÇÏµµ·Ï ÇÏ´Â ÆÐÅÏ 
-½ºÇÁ¸µ singleton: id´ç ÇÏ³ªÀÇ °´Ã¼¸¦ ¸¸µç´Ù. bean¿¤·¹¸àÆ®¸¦ ¼±¾ð½Ã Áßº¹µÈclass¸¦ »ç¿ë°¡´É
-		µ¿ÀÏÇÑ Å¬·¡½º °´Ã¼°¡ ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê »ó¿¡¼­´Â ¿©·¯°³ Á¸ÀçÇÏ´Â °ÍÀÌ °¡´ÉÇÑ´Ù
-		½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê¿¡¼­ ºóÀÇ ½Äº°´ÜÀ§´Â id 
+scope : beanì˜ ì†ì„±, singleton(default), prototypeì´ ì¡´ìž¬
+ë””ìžì¸íŒ¨í„´ - singleton: íŠ¹ì • í´ëž˜ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ê°€ jvmì—ì„œ í•˜ë‚˜ë§Œ ì¡´ìž¬í•˜ë„ë¡ í•˜ëŠ” íŒ¨í„´ 
+ìŠ¤í”„ë§ singleton: idë‹¹ í•˜ë‚˜ì˜ ê°ì²´ë¥¼ ë§Œë“ ë‹¤. beanì—˜ë ˆë©˜íŠ¸ë¥¼ ì„ ì–¸ì‹œ ì¤‘ë³µëœclassë¥¼ ì‚¬ìš©ê°€ëŠ¥
+		ë™ì¼í•œ í´ëž˜ìŠ¤ ê°ì²´ê°€ ìŠ¤í”„ë§ ì»¨í…Œì´ë„ˆ ìƒì—ì„œëŠ” ì—¬ëŸ¬ê°œ ì¡´ìž¬í•˜ëŠ” ê²ƒì´ ê°€ëŠ¥í•œë‹¤
+		ìŠ¤í”„ë§ ì»¨í…Œì´ë„ˆì—ì„œ ë¹ˆì˜ ì‹ë³„ë‹¨ìœ„ëŠ” id 
 	  				
-ref , value-ref : ½ºÇÁ¸µºóÀ» ÁÖÀÔÇÒ¶§ »ç¿ëÇÏ´Â ¼Ó¼º
-					ÇØ´ç ¼Ó¼º¿¡ µé¾î¿À´Â ¹®ÀÚ¿­Àº ½ºÇÁ¸µ ºóÀÇ ÀÌ¸§(id)ÀÌ¾î¾ß ÇÑ´Ù
+ref , value-ref : ìŠ¤í”„ë§ë¹ˆì„ ì£¼ìž…í• ë•Œ ì‚¬ìš©í•˜ëŠ” ì†ì„±
+					í•´ë‹¹ ì†ì„±ì— ë“¤ì–´ì˜¤ëŠ” ë¬¸ìžì—´ì€ ìŠ¤í”„ë§ ë¹ˆì˜ ì´ë¦„(id)ì´ì–´ì•¼ í•œë‹¤
 					
 					
-bean¿¤·¹¸àÆ®¸¦ ´ëÃ¼ ÇÒ ¼ö ÀÖ´Â ¹æ¹ý
-±âÁ¸: ½ºÇÁ¸µ ºóÀ» ÇÏ³ª¾¿ ¼±¾ð
-	<bean.....* ¼±¾ð ÇÏ·Á°í ÇÏ´Â °¹¼ö ¸¸Å­ >
-°³¼± : component-scan ÀÌ¿ë
-	À¥¿¡¼­ ÀÚÁÖ »ç¿ëÇÏ´Â ¸ðµâ(·¹ÀÌ¾ó)- controller, service, repository(dao)
-	1. ±¸Çö Å¬·¡½º¿¡ ¾î³ëÅ×ÀÌ¼ÇÀ» Àû¿ë (@Controller, @Service, @Repostitory)
-	2. componnent-scan ¿¤·¹¸àÆ®¸¦ xml¿¡ ¼±¾ð
-	=> Æ¯Á¤ ÆÐÅ°Áö ¹Ø¿¡ µî·ÏµÈ Å¬·¡½º¸¦ ½ºÄµÇÏ¸é¼­
-		@Controller, @Service ,@Repository¾î³ëÅ×ÀÌ¼ÇÀÌ ºÙÀº Å¬·¡½ºµéÀ» ½ºÇÁ¸µ ºóÀ¸·Î µî·Ï
+beanì—˜ë ˆë©˜íŠ¸ë¥¼ ëŒ€ì²´ í•  ìˆ˜ ìžˆëŠ” ë°©ë²•
+ê¸°ì¡´: ìŠ¤í”„ë§ ë¹ˆì„ í•˜ë‚˜ì”© ì„ ì–¸
+	<bean.....* ì„ ì–¸ í•˜ë ¤ê³  í•˜ëŠ” ê°¯ìˆ˜ ë§Œí¼ >
+ê°œì„  : component-scan ì´ìš©
+	ì›¹ì—ì„œ ìžì£¼ ì‚¬ìš©í•˜ëŠ” ëª¨ë“ˆ(ë ˆì´ì–¼)- controller, service, repository(dao)
+	1. êµ¬í˜„ í´ëž˜ìŠ¤ì— ì–´ë…¸í…Œì´ì…˜ì„ ì ìš© (@Controller, @Service, @Repostitory)
+	2. componnent-scan ì—˜ë ˆë©˜íŠ¸ë¥¼ xmlì— ì„ ì–¸
+	=> íŠ¹ì • íŒ¨í‚¤ì§€ ë°‘ì— ë“±ë¡ëœ í´ëž˜ìŠ¤ë¥¼ ìŠ¤ìº”í•˜ë©´ì„œ
+		@Controller, @Service ,@Repositoryì–´ë…¸í…Œì´ì…˜ì´ ë¶™ì€ í´ëž˜ìŠ¤ë“¤ì„ ìŠ¤í”„ë§ ë¹ˆìœ¼ë¡œ ë“±ë¡
 		
-		 

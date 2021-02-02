@@ -9,4 +9,30 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <context-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>
+  classpath:/kr/or/ddit/config/spring/root-context.xml
+  classpath:/kr/or/ddit/config/spring/datasource-context.xml
+  </param-value>
+  </context-param>
+  
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <servlet>
+  	<servlet-name>dispatcherServlet</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>classpath:/kr/or/ddit/config/spring/application-context.xml</param-value>
+  	</init-param>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>dispatcherServlet</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
 </web-app>

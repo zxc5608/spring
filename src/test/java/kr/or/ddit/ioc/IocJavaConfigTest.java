@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -36,7 +37,7 @@ public class IocJavaConfigTest {
 	private DbConfig dbConfig;
 	
 	
-	//userServiceCons½ºÇÁ¸µ ºóÀÌ Á¤»óÀûÀ¸·Î »ı¼ºµÇ¾ú´ÂÁö Å×½ºÆ®
+	//userServiceConsìŠ¤í”„ë§ ë¹ˆì´ ì •ìƒì ìœ¼ë¡œ ìƒì„±ë˜ì—ˆëŠ”ì§€ í…ŒìŠ¤íŠ¸
 
 	@Test
 	public void userServiceConsTest() {
@@ -51,8 +52,8 @@ public class IocJavaConfigTest {
 	@Test
 	public void beanScopeTest() {
 	
-		// µğÀÚÀÎ ÆĞÅÏÀÇ singleton°³³äÀ¸·Î º¸¸é µÎ°³ÀÇ °´Ã¼´Â ÇÑ Å¬·¡½º·Î ºÎÅÍ ³ª¿ÔÀ¸¹Ç·Î µ¿ÀÏÇØ¾ßÇÔ
-		//ÇÏÁö¸¸ ½ºÇÁ¸µÀÇ singleton°³³äÀº bean¿¤·¹¸àÆ®¸¦ ±âÁØÀ¸·Î ÇÏ³ªÀÇ °´Ã¼°¡ »ı¼ºµÈ´Ù.
+		// ë””ìì¸ íŒ¨í„´ì˜ singletonê°œë…ìœ¼ë¡œ ë³´ë©´ ë‘ê°œì˜ ê°ì²´ëŠ” í•œ í´ë˜ìŠ¤ë¡œ ë¶€í„° ë‚˜ì™”ìœ¼ë¯€ë¡œ ë™ì¼í•´ì•¼í•¨
+		//í•˜ì§€ë§Œ ìŠ¤í”„ë§ì˜ singletonê°œë…ì€ beanì—˜ë ˆë©˜íŠ¸ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•˜ë‚˜ì˜ ê°ì²´ê°€ ìƒì„±ëœë‹¤.
 		assertNotEquals(userService, userServiceCons);
 		
 	}
@@ -60,7 +61,7 @@ public class IocJavaConfigTest {
 	@Test
 	public void beanScopeTest2() {
 	
-		// µ¿ÀÏÇÑ ½ºÇÁ¸µ ºóÀ» ÁÖÀÔ¹Ş¾ÒÀ¸¹Ç·ÎuserService,userService2´Â °°Àº °´Ã¼´Ù
+		// ë™ì¼í•œ ìŠ¤í”„ë§ ë¹ˆì„ ì£¼ì…ë°›ì•˜ìœ¼ë¯€ë¡œuserService,userService2ëŠ” ê°™ì€ ê°ì²´ë‹¤
 		
 		assertEquals(userService,userService2);
 	}
@@ -68,7 +69,7 @@ public class IocJavaConfigTest {
 	@Test
 	public void ScopePrototypeTest2() {
 		
-		// µ¿ÀÏÇÑ userServicePrototypeºóÀ» ÁÖÀÔ :(scope:prototype)
+		// ë™ì¼í•œ userServicePrototypeë¹ˆì„ ì£¼ì… :(scope:prototype)
 		
 		assertNotEquals(userServicePrototype, userServicePrototype2);
 	}

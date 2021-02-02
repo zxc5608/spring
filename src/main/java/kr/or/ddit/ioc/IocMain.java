@@ -12,31 +12,31 @@ public class IocMain {
 	private static final Logger logger = LoggerFactory.getLogger(IocMain.class);
 	public static void main(String[] args) {
 /*
-		 	1. ½ºÇÁ¸µ ¼³Á¤ ÆÄÀÏÀ» ÀÌ¿ëÇÏ¿© ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê¸¦ »ý¼º(kr/or/ddit/ioc/ioc/xml)
-		 		½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê Å¸ÀÔ: ApplicationContext
-		 	2. ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê¿¡°Ô ¸¸µé¾îÁø ½ºÇÁ¸µ ºó(°´Ã¼)À» ¿äÃ»
-		 		DL(Dependency Lookup): ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê¿¡°Ô ½ºÇÁ¸µ ºóÀ» ¿äÃ»ÇÏ´Â °úÁ¤
+		 	1. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½ï¿½ï¿½ï¿½(kr/or/ddit/ioc/ioc/xml)
+		 		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ Å¸ï¿½ï¿½: ApplicationContext
+		 	2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(ï¿½ï¿½Ã¼)ï¿½ï¿½ ï¿½ï¿½Ã»
+		 		DL(Dependency Lookup): ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 		 		
-		 	3. ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê¿¡¼­ °ü¸®µÇ°í ÀÖ´Â ºóÀÌ Àß ¸¸µé¾î Á³´ÂÁö È®ÀÎ
+		 	3. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		 			 	
-		 			 	ClassPathXmlApplicationContext()¼³Á¤ÆÄÀÏÀÇ À§Ä¡¸¦ ¹®ÀÚ¿­·Î
+		 			 	ClassPathXmlApplicationContext()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½
 */
-		//¼³Á¤ÆÄÀÏÀ»ÀÌ¿ëÇØ¼­ ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê µî·Ï
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/kr/or/ddit/ioc/ioc.xml");
 		
 		//DL
 		UserDao userDao = (UserDao)context.getBean("userDao");
-		UserVo userVo = userDao.getUser("brown");
+		UserVo userVo = userDao.selectUser("brown");
 		logger.debug("userVo:{}",userVo);
 		
-		//½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê·Î ºÎÅÍ userService½ºÇÁ¸µ ºóÀ» DLÀ» ÅëÇØ ¾ò¾î¿À°í
-		//getUser¸Þ¼Òµå¸¦ call, ¹ÝÈ¯µÈ °ª(UserVo)À» logger¸¦ ÅëÇØÃâ·Â
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê·ï¿½ ï¿½ï¿½ï¿½ï¿½ userServiceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DLï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//getUserï¿½Þ¼Òµå¸¦ call, ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½(UserVo)ï¿½ï¿½ loggerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		UserService userService  =(UserService)context.getBean("userService");
-		userVo = userService.getUser("brwon");
+		userVo = userService.selectUser("brwon");
 		logger.debug("userVo:{}",userVo);
 		
-		// context¿¡ ÀÖ´Â beanÀ» Âï¾îº¸ÀÚ 
+		// contextï¿½ï¿½ ï¿½Ö´ï¿½ beanï¿½ï¿½ ï¿½ï¿½îº¸ï¿½ï¿½ 
 		for(String beanName : context.getBeanDefinitionNames()) {
 			logger.debug("beanName:{}",beanName);
 		}

@@ -11,10 +11,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.ioc.CollectionBean;
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:/kr/or/ddit/ioc/ioc.xml")
+@ContextConfiguration(locations={"classpath:/kr/or/ddit/ioc/ioc.xml","classpath:/kr/or/ddit/config/spring/datasource-context.xml"})
 public class CollectionBeanTest {
 
-	//collectionbean½ºÇÁ¸µ ºóÀÌ Á¤»óÀûÀ¸·Î »ı¼ºµÇ¾ú´ÂÁö
+	//collectionbeanï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½
 	@Resource(name="collectionBean")
 	private CollectionBean collectionBean;
 	@Test
@@ -23,7 +23,7 @@ public class CollectionBeanTest {
 		assertNotNull(collectionBean.getList());
 		assertEquals(3, collectionBean.getList().size());
 		assertEquals("sally", collectionBean.getList().get(1));
-		assertEquals("ºê¶ó¿î", collectionBean.getMap().get("usernm"));
+		assertEquals("ë¸Œë¼ìš´", collectionBean.getMap().get("usernm"));
 		
 		
 	}

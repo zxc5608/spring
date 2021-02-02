@@ -15,6 +15,7 @@ import kr.or.ddit.model.UserVo;
 import kr.or.ddit.user.repository.UserDao;
 import kr.or.ddit.user.service.UserService;
 
+
 @ContextConfiguration(classes = ComponentScanJavaConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class componenScanJavaTest {
@@ -23,25 +24,25 @@ public class componenScanJavaTest {
 	@Resource(name = "userDao")
 	private UserDao userDao;
 	
-	@Resource(name="userServiceImpl")
+	@Resource(name="userService")
 	private UserService userService;
 	
-	//@Repository¾î³ëÅ×ÀÌ¼ÇÀ» Àû¿ëÇÑuserDaoIMpl½ºÇÁ¸µ ºóÀÌ Á¤»óÀûÀ¸·ÎÄÁÅ×ÀÌ³Ê¿¡µî·ÏµÇ¾îÀÖ´ÂÁö È®ÀÎ
+	//@Repositoryì–´ë…¸í…Œì´ì…˜ì„ ì ìš©í•œuserDaoIMplìŠ¤í”„ë§ ë¹ˆì´ ì •ìƒì ìœ¼ë¡œì»¨í…Œì´ë„ˆì—ë“±ë¡ë˜ì–´ìˆëŠ”ì§€ í™•ì¸
 	@Test
 	public void userDaoImplSpringBeanTest() {
 		assertNotNull(userDao);
 		
-		UserVo userVo = userDao.getUser("brown");
-		assertEquals("ºê¶ó¿î", userVo.getUsernm());
+		UserVo userVo = userDao.selectUser("brown");
+		assertEquals("ë¸Œë¼ìš´", userVo.getUsernm());
 	}
 	
-	//userServiceImpl½ºÇÁ¸µ ºóÀÌ Á¤»óÀûÀ¸·Î ÄÁÅ×ÀÌ³Ê¿¡ µî·ÏµÇ¾ú´ÂÁö È®ÀÎ
+	//userServiceImplìŠ¤í”„ë§ ë¹ˆì´ ì •ìƒì ìœ¼ë¡œ ì»¨í…Œì´ë„ˆì— ë“±ë¡ë˜ì—ˆëŠ”ì§€ í™•ì¸
 	@Test
 	public void userServiceImplSpringBeanTest() {
 		assertNotNull(userService);
 		
-		UserVo userVo = userService.getUser("brown");
-		assertEquals("ºê¶ó¿î", userVo.getUsernm());
+		UserVo userVo = userService.selectUser("brown");
+		assertEquals("ë¸Œë¼ìš´", userVo.getUsernm());
 	}	
 
 }

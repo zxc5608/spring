@@ -1,26 +1,74 @@
 package kr.or.ddit.user.repository;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.model.UserVo;
 
 //<bean id="" class=""
-// @Repository¿¡¼­ º°´Ù¸¥ ¼³Á¤À» ÇÏÁö ¾ÊÀ¸¸é ½ºÇÁ¸µ ºó ÀÌ¸§À¸·Î classÀÌ¸§¿¡¼­ Ã¹±ÛÀÚ¸¦ ¼Ò¹®ÀÚ·Î ÇÑ 
-//¹®ÀÚ¿­ÀÌ ½ºÇÁ¸µ ºóÀÇ ÀÌ¸§À¸·Î ¼³Á¤µÈ´Ù.
+// @Repositoryï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ classï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ò¹ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ 
+//ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½.
 //UserDaoImpl ==> userDaoImpl
 
 //UserDao/ UserDaoImpl ==> @Resource(name="userDaoImpl)
 //UserDaoI/ UserDao ==> @Resource(name="userDao)
 @Repository("userDao")
 public class UserDaoImpl implements UserDao{
+	
+	@Resource(name="sqlSessionTemplate") 
+	private SqlSessionTemplate template;
 
 	@Override
-	public UserVo getUser(String userid) {
-		//¿ø·¡´Â µ¥ÀÌÅÍ º£ÀÌ½º¿¡¼­ Á¶È¸¸¦ ÇØ¾ßÇÏ³ª , °³¹ß ÃÊ±â´Ü°è¶ó
-		//¼³Á¤ÀÌ ¿Ï·áµÇÁö¾ÊÀ½ , ÇöÀç È®ÀÎÇÏ·Á°íÇÏ´Â ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê¿¡ ÃÊÁ¡À» ¸ÂÃß±â À§ÇØ 
-		// new¿¬»êÀÚ¸¦ ÅëÇØ »ý¼ºÇÑ vo°´Ã¼¸¦ ¹ÝÈ¯
+	public UserVo selectUser(String userid) {
+
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï³ï¿½ , ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½Ü°ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ , ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+		// newï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ voï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½È¯
 		
-		return new UserVo("brown","ºê¶ó¿î"); 
+		return template.selectOne("users.selectUser",userid); 
+	}
+
+	@Override
+	public List<UserVo> selectAllUser() {
+		// TODO Auto-generated method stub
+		return template.selectList("users.selectAllUser");
+	}
+
+	@Override
+	public List<UserVo> selectpagingUser(PageVo pvo) {
+		// TODO Auto-generated method stub
+		return template.selectList("users.selectpagingUser",pvo);
+	}
+
+	@Override
+	public int selectAlluserCnt() {
+		// TODO Auto-generated method stub
+		return template.selectOne("users.selectAlluserCnt");
+	}
+
+	@Override
+	public int modifyUser(UserVo userVo) {
+		// TODO Auto-generated method stub
+		return template.update("users.modifyUser",userVo);
+	}
+
+	@Override
+	public int registUser(UserVo userVo) {
+		// TODO Auto-generated method stub
+		return template.insert("users.registUser",userVo);
+	}
+
+	@Override
+	public int deleteUser(String userid) {
+		// TODO Auto-generated method stub
+		return template.delete("users.deleteUser",userid);
+		
 	}
 
 }

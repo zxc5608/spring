@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+	<!--select된 컬럼과 resultType에 기술된 클래스의 필드 이름이 동일하면
+		자동으로 값을 넣어준다
+		resultType: 한 행의 정보를 저장핤구있는 클래스 타입을 명시  -->
+  <select id="selectAllUser" resultType="userVo">
+    SELECT * 
+    FROM users
+ 
+ </select>
+
+  <select id="selectUser" resultType="userVo" parameterType="String">
+    SELECT * 
+    FROM users
+    WHERE userid= #{value}
+  </select>
+  
+  
+  <select id ="selectpagingUser" resultType="userVo" parameterType="pageVo">
+  SELECT *
+	FROM
+	(SELECT ROWNUM rn, a.*
+	 FROM
+	    (SELECT *
+	     FROM users
+	     ORDER BY userid) a
+	  WHERE ROWNUM &lt;= #{page} * #{pageSize})
+	WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+  
+  
+  </select>
+  <!-- 전체 사용자 수 조회 -->
+  <select id="selectAlluserCnt" resultType="int">
+	  SELECT COUNT(*)
+	  FROM users
+  </select>
+  
+  
+  <update id="modifyUser" parameterType="userVo">
+  		UPDATE users SET usernm = #{usernm},
+		                 pass = #{pass},
+		                 reg_dt = #{reg_dt}, 
+		                 alias= #{alias},
+		                 filename=#{filename},
+		                 realfilename=#{realfilename},
+		                 
+		                 addr1 = #{addr1},
+		                 addr2 = #{addr2},
+		                 zipcode = #{zipcode}
+		                 
+		WHERE userid= #{userid}
+  
+  </update>
+  
+  <insert id="registUser" parameterType="userVo">
+  insert into users(userid, usernm, pass ,reg_dt,
+  					 alias, addr1,addr2,zipcode,filename,realfilename)
+  
+        values(#{userid},#{usernm},#{pass},#{reg_dt},
+        		#{alias},#{addr1},#{addr2},#{zipcode},#{filename},#{realfilename})
+  </insert>
+  <!--사용자 삭제 파라미터를 문자열로 넘겨줬음-->
+  <delete id="deleteUser" parameterType="String">
+  	 DELETE users
+	 WHERE userid = #{userid}
+  </delete>
+</mapper>  

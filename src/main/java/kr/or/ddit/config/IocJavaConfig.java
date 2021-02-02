@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 
@@ -18,8 +19,9 @@ import kr.or.ddit.user.repository.UserDaoImpl;
 import kr.or.ddit.user.service.UserService;
 import kr.or.ddit.user.service.UserServiceImpl;
 
-//½ºÇÁ¸µ ÇÁ·¹ÀÓ¿öÅ©¿¡°Ô ÇØ´ÙÀ¸ ÀÚ¹Ù ÆÄÀÏÀÌ 
-//½ºÇÁ¸µ ¼³Á¤ ÆÄÀÏÀÓÀ» ¾Ë·ÁÁØ´Ù
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½ï¿½ ï¿½Ú¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½Ø´ï¿½
+@ImportResource("classpath:/kr/or/ddit/config/spring/datasource-context.xml")
 @PropertySource(value= {"classpath:/kr/or/ddit/config/db/dbinfo.properties"})
 @Configuration
 public class IocJavaConfig {
@@ -33,10 +35,13 @@ public class IocJavaConfig {
 	@Value("${jdbc.password}")
 	private String password;
 	
-	//¸Ş¼Òµå : ½ºÇÁ¸µ ºóÀ¸·Î ¸¸µé °´Ã¼¸¦ ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå »ı¼º
-	//		¸Ş¼Òµå¿¡ @Bean ¾î³ëÅ×ÀÌ¼Ç Àû¿ë
-	//		@Bean¾î³ëÅ×ÀÌ¼Ç¿¡ º°´Ù¸¥ ¿É¼ÇÀ» Àû¿ëÇÏÁö ¾ÊÀ¸¸é »ı¼ºµÈ ½ºÇÁ¸µ ºóÀÇ ÀÌ¸§Àº 
-	//		¸Ş¼Òµå ÀÌ¸§À¸·Î Àû¿ëµÈ´Ù.(@Bean ¾î³ëÅ×ÀÌ¼ÇÀÇname¼Ó¼ºÀ» ÅëÇØ ½ºÇÁ¸µ ºó ÀÌ¸§ ¼³Á¤°¡´É)
+	/*
+	 * ë¹ˆ ë©”ì†Œë“œë¡œ ë“±ë¡ ë©”ì†Œë“œ : ìŠ¤í”„ë§ ë¹ˆìœ¼ë¡œ ë§Œë“¤ ê°ì²´ë¥¼ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ ìƒì„± ë©”ì†Œë“œì— @Bean ì–´ë…¸í…Œì´ì…˜ ì ìš©
+	 * 
+	 * @Beanì–´ë…¸í…Œì´ì…˜ì— ë³„ë‹¤ë¥¸ ì˜µì…˜ì„ ì ìš©í•˜ì§€ ì•Šìœ¼ë©´ ìƒì„±ëœ ìŠ¤í”„ë§ ë¹ˆì˜ ì´ë¦„ì€ ë©”ì†Œë“œ ì´ë¦„ìœ¼ë¡œ ì ìš©ëœë‹¤.(@Bean
+	 * ì–´ë…¸í…Œì´ì…˜ì˜nameì†ì„±ì„ í†µí•´ ìŠ¤í”„ë§ ë¹ˆ ì´ë¦„ ì„¤ì •ê°€ëŠ¥
+	 */
+
 	
 	//<bean id ="userDao" class="kr.or.ddit.user.repository.UserDaoImpl"/>
 	
