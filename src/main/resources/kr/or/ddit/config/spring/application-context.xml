@@ -37,4 +37,7 @@
 	서버에 설정이 되어있는 default서블릿으로 요청을위임 -->
 	
  	<mvc:default-servlet-handler/>
+ 	
+ 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+ 	</bean>
 </beans>

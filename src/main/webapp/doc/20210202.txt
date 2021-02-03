@@ -1,0 +1,133 @@
+사용자 전체리스트 개발완료 
+
+사용자 페이징 처리
+페이징처리를 위해 필요한 값
+
+1. 정렬기준(userid)
+2. 페이지 사이즈
+3. 페이지
+
+user/pagingUser ==> 페이지,페이지 사이즈 파라미터를 보내지않음
+					페이지,페이지 사이즈 파라미터가 없을 경우 servlet 기본값 처리를 함
+					1     5
+					
+		String pageParam = req.getParameter("page");
+		String pageSizeParam = req.getParameter("pageSize");
+		
+		int page= pageParam ==null ? 1 :Integer.parseInt(pageParam);
+		int pageSize= pageSizeParam==null ? 5 : Integer.parseInt(pageSizeParam);
+		
+		PageVo vo = new PageVo(page,pageSize);
+		
+@RequestParam
+**메소드 인자에서 사용가능한 어노테이션
+
+1.바인딜 될 파라미터 설정(name)
+	파라미터 명과 메소드 인자 명이 다를 경우 자동 바인딩이 되지 않는 문제를 해결
+	파라미터명을 명시함으로서 메소드 인자에 자동 바인딩 될수 있도록 설정
+	
+2.파라미터가 존재 하지 않을 경우 기본값 설정(defaultValue)
+	파라미터가 존재하지 않을 경우 , 메소드 인자를primitive type으로 선언한 경우 에러 ㅂ라생
+	==> defaultValue설정으로 에서 방지 기능
+3. 파라미터 존재여부 설정(required 기본값은true
+	파라미터가 반드시 필요한지 여부를 설정
+	단 defaultValue 설정시 자동으로false로 설정됨
+	
+@ModelAttribute
+1. 메소드
+ @RequestMapping 어노테이션이 붙은 메소드가 실행되기 전에 먼저 실행되고
+ 해당 메소드가 리턴하는 값을 Model객체에 넣어준다
+ 
+ @ModelAttribute
+ Public List<String> ranger(){
+ 	...
+ 	return list;
+ }
+ 
+ @RequestMapping ("list")
+ public String view(Model model){
+ 	return "view";
+ }
+ 
+ localhost/user/list ==> rangers() ==> model  ==> list
+ localhost/user/list ==> rangers() ==> model  ==> list2
+ 
+ @Before ==> @Test
+ @Before ==> @Test
+ @Before ==> @Test
+ 
+ 2.파라미터인자
+ Model객체에 저장된 속성을 파라미터 인자에 바인딩 가능
+ 
+ command객체의 경우 @ModelAttirbute어노테이션을 적용하지 않더라도
+ model객체에 자동으로 등록이된다.
+
+@SessionAttributes
+class에 적용
+
+@ModelAttributr가 적용된 메소드가 @RequestMapping이 적용된 메소드 실행전 항상 호출되는 부하를
+줄이는것이 목적
+
+최초 1회에 대해서는 @ModelAttribute가 적용된 메소드를 호출하여 해당 속성 값을 세션에적용
+그 이후 호출에 대해서는 세션에 저장된 값을 사용하여 @ModelAttribute메소드가 적용된 로직이 
+반복호출되는 것을 방지 ==> cache
+
+@PathVariable: uri의 일부를 메소드 인자로 바인딩
+
+사용: 메소드 인자
+1.@RequestMapping path 설정시 어떤 부분을 가져올지 표현
+	==> @RequestMapping("hello"/{path}")
+2.메소드 인자에 @PathVariable을 통해 가져올값을 바인딩
+	public String view(@PathVariable("path")String path){
+	
+	} 
+
+
+@Requestparam : 파라미터를 메소드 인자로 바인딩할때
+@RequestHeader: 헤더정보를 메소드 인자로 바인딩할때
+
+파일업로드
+1. 서블릿
+	. form태그 enctype="multipart/form-data
+	. form태그 method="post"
+	.<input type="file"/>
+	. @MultipartConfig
+	
+	파일정보: Part part= request.getPart 
+	
+2.spring
+	. form태그 enctype="multipart/form-data
+	. form태그 method="post"
+	.<input type="file"/>
+	.****multipartResolver라는 스프링 빈 등록 CommonsMultipartResolver
+	
+	파일정보: MultipartFile
+	
+	부모 
+	자식(applicaion-context.xml)
+	
+	-----------------------------------------------------------------------
+@RequestPart - 파일업로드: @RequestParam과 유사 
+(mavenrepository에서 fileupload라이브러리 추가)
+
+
+복수파라미터 전송
+메소드 인자로 List  ==> List<String> 인자(x)
+메소드 인자로 배열  ==> String[] 인자 (o)
+메소드 인자로 리스트를 필드로 하는 command 객체 ==> UsersVo userVo (o)
+
+public UsersVo(){
+	private List<String> userids;
+	private List<String> usernms;
+}
+
+
+
+
+스프링 MVC실습 
+1.사용자 상세 페이지(제외사항 : 사용자 사진, 엑스박스로 떠도상관없음)
+2.사용자 수정 페이지(파일 업로드까지 전체이관)
+3.사용자 등록 페이지(파일업로드까지 전체이관)
+4.사용자 삭제기능(전체이관)
+5.테스트 코드 작성
+

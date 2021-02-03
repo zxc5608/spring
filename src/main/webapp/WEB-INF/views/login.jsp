@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,6 +28,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/signin.css" rel="stylesheet">
+
 
  	 <script>
  	 
@@ -68,6 +70,15 @@
 		
 	//htmp문서 로딩이 완료 되고 나서 실행되는 코드 
 	$(function () {
+		<c:if test="${msg != null}">
+			alert("${msg}"+"ra");
+			
+		</c:if>
+			
+		
+		
+		
+		
 		//userid, rememberme 쿠키를 확인하여 존재할 경우 값설정, 체크 
 		if(Cookies.get("rememberme")=="Y")
 			$('#userid').val(Cookies.get("userid"))

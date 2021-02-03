@@ -75,7 +75,7 @@ public class UserVo {
 
 
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy.MM.dd")
 	private Date reg_dt;
 
 	@DateTimeFormat(pattern = "MM-dd-yyyy")
@@ -86,15 +86,22 @@ public class UserVo {
 	private int price;
 
 	public UserVo() {}
-
-	public UserVo(String userid, String usernm, String pass, Date date, String alias, String addr1, String addr2, String zipcode, String filename, String realfilename) {}
-	//�⺻������ ���� 
 	
-	public UserVo(String userid, String usernm, String pass) {
+	public UserVo(String userid, String usernm, String pass, Date reg_dt, String alias, String addr1, String addr2, String zipcode, String filename, String realfilename) {
 		setUserid(userid);
 		setUsernm(usernm);
 		setPass(pass);
+		setReg_dt(reg_dt);
+		setAlias(alias);
+		
+		setAddr1(addr1);
+		setAddr2(addr2);
+		setZipcode(zipcode);
+		setFilename(filename);
+		setRealfilename(realfilename);
 	}
+	
+	
 	public String getUserid() {
 		return userid;
 	}

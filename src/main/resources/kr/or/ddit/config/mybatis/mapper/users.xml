@@ -45,8 +45,8 @@
 		                 reg_dt = #{reg_dt}, 
 		                 alias= #{alias},
 		                 filename=#{filename},
-		                 realfilename=#{realfilename},
 		                 
+		                 realfilename=#{realfilename},
 		                 addr1 = #{addr1},
 		                 addr2 = #{addr2},
 		                 zipcode = #{zipcode}
