@@ -1,7 +1,8 @@
 <%@page import="kr.or.ddit.model.UserVo"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,11 +49,11 @@ $(function(){
 <body>
 <%@include file="/WEB-INF/views/common/header.jsp" %>
 
-
 <div class="container-fluid">
 		<div class="row">
 			
 <div class="col-sm-3 col-md-2 sidebar">
+ spring message:<spring:message code="GREETING" arguments="brown"></spring:message>
 	<%@include file="/WEB-INF/views/common/left.jsp" %>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -70,7 +71,7 @@ $(function(){
 					
 						 	<input type="text" class="form-control" id="userid" name="userid"
 								placeholder="사용자 아이디" value="${param.userid}"/> 
-								
+							<span style="color:red"><form:errors path="userVo.userid"/></span>
 						<input type="file" class="form-control" name ="profile"/>
 						
 						</div>

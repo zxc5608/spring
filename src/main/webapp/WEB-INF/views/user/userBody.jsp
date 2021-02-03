@@ -4,24 +4,11 @@
     pageEncoding="UTF-8"%>
   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="../../favicon.ico">
-
-<title>Jsp</title>
+>
 
 <%@include file="/WEB-INF/views/common/common_lib.jsp" %>
 
-<!-- Custom styles for this template -->
-<link href="${cp}/css/dashboard.css" rel="stylesheet">
-<link href="${cp}/css/blog.css" rel="stylesheet">
+
 <script>
 //문서 로딩이 완료되었을때
 $(function(){
@@ -39,7 +26,6 @@ $(function(){
 </script>
 </head>
 
-<body>
 <%@include file="/WEB-INF/views/common/header.jsp" %>
 
 

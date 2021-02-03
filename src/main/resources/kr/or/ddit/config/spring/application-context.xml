@@ -20,15 +20,40 @@
 		RequestMappingHandlerMapping
 		RequestMappingHandlerAdapter
 	  -->
-	<mvc:annotation-driven>
-	</mvc:annotation-driven>		
+	<mvc:annotation-driven/>
 	
+	<!-- view Resolver 우선순위
+		order필드 값이 낮을 수록 우선순위가 높다 -->
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="order" value="0"/>
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	</bean>
+	
+	<bean name="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>classpath:/kr/or/ddit/config/tiles/tiles-definition.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1"/>
+	</bean>
+	
+	
+	
+	
+	<bean id= "jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>		
+	<bean id ="fd" class ="kr.or.ddit.view.FileDownloadView"/>
+	<bean id="userExcelDownloadView" class="kr.or.ddit.view.ExcelDownloadView"/>
 	<!-- view resolver등록 (여러개를 등록하는 것이 가능)
 		jsp ==> InternalResourceViewResolver -->
 		
 
 	 <!-- prefix + servlet  +suffix -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="2"/>
 		<property name="prefix" value="/WEB-INF/views/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>		

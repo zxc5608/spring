@@ -1,12 +1,17 @@
 package kr.or.ddit.user.web;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
-import javax.swing.AbstractListModel;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +27,6 @@ import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.model.UserVo;
 import kr.or.ddit.user.service.UserService;
 import kr.or.ddit.util.FileUtil;
-import kr.or.ddit.validator.UserVoValidator;
 @RequestMapping("user")
 @Controller
 public class UserController {
@@ -46,6 +50,14 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 		
 		return "user/AllUser";
 	}
+	@RequestMapping("AllUserTiles")
+	public String AllUserTiles(Model model) {
+		logger.debug("allusercont");
+		List<UserVo>userList=userService.selectAllUser();
+		model.addAttribute("userlist",userList);
+		
+		return "tiles.user.AllUser";
+	}
 	
 	@RequestMapping("pagingUser")
 	public String pagingUser(@RequestParam(defaultValue = "1") int page,
@@ -61,6 +73,20 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 		
 		return "user/pagingUser";
 	}
+	@RequestMapping("pagingUserTiles")
+	public String pagingUserBody(@RequestParam(defaultValue = "1") int page,
+							 @RequestParam(defaultValue = "5") int pageSize,
+							 Model model) {
+		logger.debug("page:{},pageSize:{}",page,pageSize);
+		
+		PageVo pageVo= new PageVo(page,pageSize);
+		
+		
+		model.addAllAttributes(userService.selectpagingUser(pageVo));
+	
+		
+		return "tiles.user.pagingUser";
+	}
 	//@RequestMapping("pagingUser")
 	public String pagingUser(PageVo pageVo) {
 		
@@ -69,6 +95,16 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 		return "";
 	}
 	
+	@RequestMapping("userTiles")
+	public String userControllerTiles(@RequestParam String userid,Model model ) {
+		
+		UserVo user= userService.selectUser(userid);
+		
+		model.addAttribute("user",user);
+		
+		return "tiles.user.user";
+		
+	}
 	@RequestMapping("user")
 	public String userController(@RequestParam String userid,Model model ) {
 		
@@ -154,9 +190,14 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 	
 	//bindingresult객체는 command객체 바로 뒤에 인자로 기술해야한다
 	@RequestMapping(path="registUser", method=RequestMethod.POST)
-	public String registUser(UserVo userVo,BindingResult result, MultipartFile profile,Model model) {
+	public String registUser(@Valid UserVo userVo,BindingResult result, MultipartFile profile,Model model) {
 		
-		new UserVoValidator().validate(model, result);
+		//new UserVoValidator().validate(userVo, result);
+		
+		if(result.hasErrors()) {
+			logger.debug("result has error");
+			return "user/registUser";
+		}
 		
 		String filename= profile.getOriginalFilename();
 		String fileExtension=FileUtil.getFileExtension1(filename);
@@ -189,5 +230,86 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 		
 		
 	}
+	@RequestMapping("excelDownload")
+	public String excelDownload(Model model) {
+		List<String> header =new ArrayList<String>();
+		header.add("사용자 아이디");
+		header.add("사용자 이름");
+		header.add("사용자 별명");
+		
+		model.addAttribute("header",header);
+		model.addAttribute("data",userService.selectAllUser());
+		
+		return "userExcelDownloadView";
+		
+	}
+	//localhost/user/profile
+	@RequestMapping("profile")
+	public void profile(HttpServletResponse resp,String userid,HttpServletRequest req) {
+		
+		resp.setContentType("image");
+		
+		
+		UserVo uservo =userService.selectUser(userid);
+		String path="";
+		
+		if(uservo.getRealfilename() == null) {
+			path = req.getServletContext().getRealPath("/image/unknown.png");
+		}
+		else {
+			path= uservo.getRealfilename();			
+		}
+		
+		logger.debug("path : {}",path);
+		try {
+			FileInputStream fis = new FileInputStream(path);
+			ServletOutputStream sos = resp.getOutputStream();
+			
+			byte[]buff=new byte[512];
+			while(fis.read(buff)!= -1) {
+				sos.write(buff);
+			}
+			fis.close();
+			sos.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping("profileDownload")
+	public void profileDownload(HttpServletResponse resp,String userid,HttpServletRequest req) {
+		
+		UserVo uservo =userService.selectUser(userid);
+		
+		resp.setHeader("Content-Disposition","attachement; filename="+uservo.getFilename());
+		resp.setContentType("image");
+		String path="";
+		
+		if(uservo.getRealfilename() == null) {
+			path = req.getServletContext().getRealPath("/image/unknown.png");
+		}
+		else {
+			path="d:\\upload\\"+ uservo.getRealfilename();			
+		}
+		
+		logger.debug("path : {}",path);
+		try {
+			FileInputStream fis = new FileInputStream(path);
+			ServletOutputStream sos = resp.getOutputStream();
+			
+			byte[]buff=new byte[512];
+			while(fis.read(buff)!= -1) {
+				sos.write(buff);
+			}
+			fis.close();
+			sos.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+
 	
 }

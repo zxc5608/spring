@@ -140,8 +140,49 @@
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>1.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+		<dependency>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>6.2.0.Final</version>
+		</dependency>
 		
+	   	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+	   	<!-- json변경 라이브러리 -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.12.1</version>
+		</dependency>
 	   		
+	   	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>5.0.0</version>
+		</dependency>
+			   	
+	<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp -->
+		<dependency>
+		    <groupId>org.apache.tiles</groupId>
+		    <artifactId>tiles-jsp</artifactId>
+		    <version>3.0.8</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-servlet -->
+		<dependency>
+		    <groupId>org.apache.tiles</groupId>
+		    <artifactId>tiles-servlet</artifactId>
+		    <version>3.0.8</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-extras -->
+		<dependency>
+		    <groupId>org.apache.tiles</groupId>
+		    <artifactId>tiles-extras</artifactId>
+		    <version>3.0.8</version>
+		</dependency>
+		
+		
+			   	
    </dependencies>
    
 </project>
