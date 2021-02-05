@@ -72,7 +72,9 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 	
 		
 		return "user/pagingUser";
+	
 	}
+	
 	@RequestMapping("pagingUserTiles")
 	public String pagingUserBody(@RequestParam(defaultValue = "1") int page,
 							 @RequestParam(defaultValue = "5") int pageSize,
@@ -87,6 +89,47 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 		
 		return "tiles.user.pagingUser";
 	}
+	
+	//사용자 리스트가 없는 상태의 화면만 응답으로 생성
+	@RequestMapping("pagingUserAjaxView")
+	public String pagingUserAjaxView() {
+		return "tiles.user.pagingUserAjax";
+	}
+	
+	
+//	Ajax
+	@RequestMapping("pagingUserAjax")
+	public String pagingUserAjax(@RequestParam(defaultValue = "1") int page,
+							 @RequestParam(defaultValue = "5") int pageSize,
+							 Model model) {
+		logger.debug("page:{},pageSize:{}",page,pageSize);
+		
+		PageVo pageVo= new PageVo(page,pageSize);
+		
+		model.addAllAttributes(userService.selectpagingUser(pageVo));
+		
+		return "jsonView";
+	}
+	
+	@RequestMapping("pagingUserAjaxHtml")
+	public String pagingUserAjaxHtml(@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "5") int pageSize,
+			Model model) {
+		logger.debug("page:{},pageSize:{}",page,pageSize);
+		
+		PageVo pageVo= new PageVo(page,pageSize);
+		
+		model.addAllAttributes(userService.selectpagingUser(pageVo));
+		
+		return "user/pagingUserAjaxHtml";
+	}
+	
+	/*
+	 * pagingUserAjaxHtml=> /WEB-INF/views/user/pagingUserAjaxHtml.jsp
+	 */
+	
+	
+	
 	//@RequestMapping("pagingUser")
 	public String pagingUser(PageVo pageVo) {
 		
@@ -94,6 +137,8 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 		
 		return "";
 	}
+	
+	
 	
 	@RequestMapping("userTiles")
 	public String userControllerTiles(@RequestParam String userid,Model model ) {
@@ -182,10 +227,8 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 
 	@RequestMapping(path="registUser", method=RequestMethod.GET)
 	public String registUserview() {
-	
-		
-		
-		return "user/registUser";
+		//return "user/registUser";
+		return "tiles.user.registUser";
 	}
 	
 	//bindingresult객체는 command객체 바로 뒤에 인자로 기술해야한다
@@ -309,7 +352,7 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-	}
+	} 
 
 	
 }

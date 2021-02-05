@@ -1,0 +1,19 @@
+viewName : "ajax/ajaxView"
+
+1. tilesViewResolver
+	==> viewName과 동일한 이름의 tiles definition이 있는지 검사 
+	있으면 사용
+	없으면?
+2. beanNameViewResolver
+	==> viewName과 동일한 이름의 스프링빈을 찾고, 검색ㄷ이되면 해당 스프링 빈을 view객체로 사용
+		있으면 view 객체로 사용
+		없으면?
+3.internalResourceViewResolver
+	==> view name에 해당하는 리소스의 존재 유무와 관계없이 forward
+	
+
+중간 프로젝트 => 스프링으로 바꾸기
+1.login, main화면 공통
+2.본인이 만든 메뉴 아무거나
+	메뉴가 메인화면 링크를 통해 접속할수 있게끔 
+	(만걍 본인이 만든 기능이 메인메뉴에 없을 경우 강제로 추가)
