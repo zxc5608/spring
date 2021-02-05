@@ -17,7 +17,8 @@
   classpath:/kr/or/ddit/config/spring/datasource-context.xml
   </param-value>
   </context-param>
-  
+<!--   classpath:/kr/or/ddit/config/spring/aop-context.xml
+ -->  
   <listener>
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
