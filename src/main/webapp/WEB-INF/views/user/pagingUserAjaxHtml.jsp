@@ -1,7 +1,3 @@
-<%@page import="java.util.Date"%>
-<%@page import="kr.or.ddit.common.model.PageVo"%>
-<%@page import="java.util.List"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -30,10 +26,9 @@
 	<li class="active"><span>${i}</span></li>
 	</c:when>
 	<c:otherwise>
-	<li><a href="javascript:pagingUserAjax(${i },${pageVo.pageSize});">${i}</a></li>
+	<li><a href="javascript:pagingUserAjax(${i},${pageVo.pageSize});">${i}</a></li>
 	</c:otherwise>
 </c:choose>
 </c:forEach> 
-<li class="next"><a
-	href="javascript:pagingUserAjax(${pagination },${pageVo.pageSize});">»</a>
+<li class="next"><a href="javascript:pagingUserAjax(${pagination },${pageVo.pageSize});">»</a>
 </li> 

@@ -2,8 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 <!-- 
 1. Datasource 
@@ -40,7 +44,28 @@
 	</bean>
 	<bean id= "sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
-	
 	</bean>
-
+	<!-- 트랜잭션 매니저 소스 빈설정 -->
+	
+	<!--1.bean선언순서 중요하지 않음
+		2.다른설정파일에 선언한스프링빈도 참조하는게 가능   -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<!--advice: 공통의 관심사  -->
+	<!--선언적 트랜젝션 : 개발자가 별도로 commit rollback 을 호출하지 않음
+					상황에 따라서 자동으로 commit, rollback이됨
+					commit: pointcut으로 설정된 메소드가 실행될때 해당 메소드에서 
+							RuntimeException이 발생하지 않고 정상적으로 실행될경우 
+					rollback: RuntimeException이 발생할때 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- advisor: advice + pointcut -->
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* kr.or.ddit..service.*.*(..))"/>
+	</aop:config>
 </beans>

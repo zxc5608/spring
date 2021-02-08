@@ -37,7 +37,7 @@ function pagingUserAjax(page, pageSize){
 	$.ajax({
 		//url:"/user/pagingUserAjax",
 		url:"/user/pagingUserAjaxHtml",
-		data:"page = " +page+ " &pageSize = "+ pageSize,
+		data:"page=" +page+ "&pageSize="+ pageSize,
 		//data:{page:1,pageSize:5},
 		success:function(data){
 			//
